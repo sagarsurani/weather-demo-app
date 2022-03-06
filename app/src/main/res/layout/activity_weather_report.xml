@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/primary_color"
@@ -14,7 +13,7 @@
         android:layout_marginHorizontal="@dimen/dp_20_dp"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/poppins_semibold"
-        tools:text="The forcast in Surat over the next 7 days."
+        tools:text="The forecast in Surat over the next 7 days."
         android:textColor="@color/white"
         android:textSize="30sp" />
 

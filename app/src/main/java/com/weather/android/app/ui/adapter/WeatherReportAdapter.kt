@@ -9,7 +9,7 @@ import com.weather.android.app.R
 import com.weather.android.app.data.models.WeatherReportData
 import kotlinx.android.synthetic.main.item_weather_report.view.*
 
-class WeatherReportAdapter() :
+class WeatherReportAdapter :
     RecyclerView.Adapter<WeatherReportAdapter.WeatherReportViewHolder>() {
     private var weatherReportList: ArrayList<WeatherReportData>? = ArrayList()
 
@@ -44,7 +44,7 @@ class WeatherReportAdapter() :
             itemView.tvDate.text = weatherReport.date
             itemView.tvTemperature.text = weatherReport.temp
             itemView.tvDesc.text = weatherReport.message
-            itemView.tvSubDesc.text = itemView.context.getString(R.string.wether_desc,weatherReport.maxTemp,weatherReport.minTemp)
+            itemView.tvSubDesc.text = itemView.context.getString(R.string.weather_desc,weatherReport.maxTemp,weatherReport.minTemp)
         }
     }
 }

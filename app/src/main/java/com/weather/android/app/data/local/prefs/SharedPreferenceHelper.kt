@@ -29,7 +29,7 @@ class SharedPreferenceHelper private constructor(appContext: Context) {
         getmPrefs().edit().remove(key).commit()
     }
 
-    fun containsKey(key: String?): Boolean {
+    private fun containsKey(key: String?): Boolean {
         return getmPrefs().contains(key)
     }
 
@@ -47,7 +47,7 @@ class SharedPreferenceHelper private constructor(appContext: Context) {
         editor.apply()
     }
 
-    fun getInt(key: String?, defValue: Int): Int {
+    private fun getInt(key: String?, defValue: Int): Int {
         return getmPrefs().getInt(key, defValue)
     }
 
@@ -124,8 +124,6 @@ class SharedPreferenceHelper private constructor(appContext: Context) {
         /**
          * Creates a new sInstance of SharedPreferenceHelper if not created already
          * Should be called before accessing sInstance
-         * Called in @Link #haygot.togyah.app.common.application.TopprApplication.onCreate()
-         *
          * @param appContext
          */
         @Synchronized

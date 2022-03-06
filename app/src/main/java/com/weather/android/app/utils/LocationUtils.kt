@@ -22,7 +22,7 @@ class LocationUtils {
                     latLng = LatLng(address.latitude, address.longitude)
                 }
                 } catch (e: IOException) {
-                    e.printStackTrace();
+                    e.printStackTrace()
                 }
                 return latLng
             }

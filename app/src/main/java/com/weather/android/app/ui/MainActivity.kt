@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     private var currentLatitude: Double? = null
     private var currentLongitude: Double? = null
     private lateinit var recentSearchAdapter: RecentSearchAdapter
-    var mFusedLocationClient: FusedLocationProviderClient? = null
+    private var mFusedLocationClient: FusedLocationProviderClient? = null
 
     companion object {
         fun start(context: Context) {
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         initView()
     }
 
@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
             mFusedLocationClient!!.lastLocation.addOnCompleteListener {
                 val location: Location = it.result
                 if (location == null) {
-                    requestNewCurrentLocationData();
+                    requestNewCurrentLocationData()
                 } else {
                     currentLatitude = location.latitude
                     currentLongitude = location.longitude

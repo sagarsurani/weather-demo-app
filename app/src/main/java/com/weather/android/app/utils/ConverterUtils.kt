@@ -1,8 +1,6 @@
 package com.weather.android.app.utils
 
 import android.annotation.SuppressLint
-import java.text.SimpleDateFormat
-import java.util.*
 
 @SuppressLint("SimpleDateFormat")
 class ConverterUtils {

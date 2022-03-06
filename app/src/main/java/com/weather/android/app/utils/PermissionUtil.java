@@ -22,9 +22,7 @@ public class PermissionUtil {
     private static boolean shouldAskPermission(Context context, String permission) {
         if (shouldAskPermission()) {
             int permissionResult = ActivityCompat.checkSelfPermission(context, permission);
-            if (permissionResult != PackageManager.PERMISSION_GRANTED) {
-                return true;
-            }
+            return permissionResult != PackageManager.PERMISSION_GRANTED;
         }
         return false;
     }

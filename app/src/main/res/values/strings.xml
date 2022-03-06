@@ -4,8 +4,8 @@
     <string name="cancel">cancel</string>
     <string name="gps_enable_text">GPS is not enabled. Do you want to go to settings menu?</string>
     <string name="permission_location_enable_text">Enable Location Permission from App settings</string>
-    <string name="wether_header_desc">The forcast in %1$s over the next 7 days.</string>
-    <string name="wether_desc">The high will be %1$s, the low will be %2$s.</string>
+    <string name="weather_header_desc">The forecast in %1$s over the next 7 days.</string>
+    <string name="weather_desc">The high will be %1$s, the low will be %2$s.</string>
     <string name="location_not_found">Location not found!!</string>
     <string name="failed_to_show_report">failed to show report</string>
     <string name="recent_searches">recent searches:</string>

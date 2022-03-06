@@ -62,7 +62,7 @@ class WeatherReportActivity : AppCompatActivity(), LocationListener {
     }
 
     private fun initView() {
-        tvHeader.text = getString(R.string.wether_header_desc, if (!isFromSplash) LocationUtils.getCityNameFromLatLng(lat!!, lon!!, this) else preferenceDataHelper!!.getRecentSearchList()[0].title)
+        tvHeader.text = getString(R.string.weather_header_desc, if (!isFromSplash) LocationUtils.getCityNameFromLatLng(lat!!, lon!!, this) else preferenceDataHelper!!.getRecentSearchList()[0].title)
         initRecyclerView()
         tvChangeAddress.setOnClickListener { onBackPressed() }
         checkLocationPoints()

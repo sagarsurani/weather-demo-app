@@ -39,7 +39,7 @@ class PreferenceDataHelper private constructor(context: Context) {
         return mSharedPreferenceHelper.getBoolean(permission, true)
     }
 
-    fun saveRecentSearchList(articleItems: ArrayList<RecentSearchHistory>) {
+    private fun saveRecentSearchList(articleItems: ArrayList<RecentSearchHistory>) {
         mSharedPreferenceHelper.setString("aa", Gson().toJson(articleItems))
     }
 

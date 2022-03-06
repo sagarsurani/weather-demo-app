@@ -18,39 +18,39 @@ public class GPSUtil {
         return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
-    public static AlertDialog buildAlertMessageNoGps(Context context, GPSAlertChoiceListner gpsAlertChoiceListner) {
+    public static AlertDialog buildAlertMessageNoGps(Context context, GPSAlertChoiceListener gpsAlertChoiceListener) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(R.string.gps_enable_text)
                 .setCancelable(false)
                 .setPositiveButton(R.string.setting, (dialogInterface, i) -> context.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
                 .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
                     dialogInterface.cancel();
-                    if (gpsAlertChoiceListner != null) {
-                        gpsAlertChoiceListner.onCancelClick();
+                    if (gpsAlertChoiceListener != null) {
+                        gpsAlertChoiceListener.onCancelClick();
                     }
                 });
         return builder.create();
     }
 
-    public static AlertDialog buildAlertMessageDenyPermission(AppCompatActivity context, String msg, LocationPermissionAlertChoiceListner locationPermissionAlertChoiceListner) {
+    public static AlertDialog buildAlertMessageDenyPermission(AppCompatActivity context, String msg, LocationPermissionAlertChoiceListener locationPermissionAlertChoiceListener) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(msg)
                 .setCancelable(false)
                 .setPositiveButton(R.string.setting, (dialogInterface, i) -> IntentUtils.openAppSettingsForActivity(context))
                 .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
                     dialogInterface.cancel();
-                    if (locationPermissionAlertChoiceListner != null) {
-                        locationPermissionAlertChoiceListner.onCancelClick();
+                    if (locationPermissionAlertChoiceListener != null) {
+                        locationPermissionAlertChoiceListener.onCancelClick();
                     }
                 });
         return builder.create();
     }
 
-    public interface GPSAlertChoiceListner {
+    public interface GPSAlertChoiceListener {
         void onCancelClick();
     }
 
-    public interface LocationPermissionAlertChoiceListner {
+    public interface LocationPermissionAlertChoiceListener {
         void onCancelClick();
     }
 }
