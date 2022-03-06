@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -54,17 +55,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-//        llRecentSearch.visibility = View.VISIBLE
         rvRecentSearch.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recentSearchAdapter = RecentSearchAdapter(preferenceDataHelper!!.getRecentSearchList(),
             fun(item: RecentSearchHistory) { getReportFromRecentSearch(item) })
         rvRecentSearch.adapter = recentSearchAdapter
+        showHideRecentView()
+    }
+
+    private fun showHideRecentView() {
+        if (preferenceDataHelper!!.getRecentSearchList().size > 0)
+            llRecentSearch.visibility = View.VISIBLE
+        else
+            llRecentSearch.visibility = View.GONE
     }
 
     private fun updateSearchHistoryList(list: ArrayList<RecentSearchHistory>) {
         if (this::recentSearchAdapter.isInitialized) {
             recentSearchAdapter.setList(list)
+            showHideRecentView()
         }
     }
 
@@ -111,9 +120,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addDataInSearchHistory(lat: Double, lon: Double) {
-        val item = RecentSearchHistory(LocationUtils.getCityNameFromLatLng(lat, lon, this)!!, lat, lon)
-        for (i in 0 until preferenceDataHelper!!.getRecentSearchList().size){
-            if (preferenceDataHelper!!.getRecentSearchList()[i].title==item.title){
+        val item =
+            RecentSearchHistory(LocationUtils.getCityNameFromLatLng(lat, lon, this)!!, lat, lon)
+        for (i in 0 until preferenceDataHelper!!.getRecentSearchList().size) {
+            if (preferenceDataHelper!!.getRecentSearchList()[i].title == item.title) {
                 preferenceDataHelper!!.deleteSearchItem(i)
                 break
             }
