@@ -62,7 +62,14 @@ class WeatherReportActivity : AppCompatActivity(), LocationListener {
     }
 
     private fun initView() {
-        tvHeader.text = getString(R.string.weather_header_desc, if (!isFromSplash) LocationUtils.getCityNameFromLatLng(lat!!, lon!!, this) else preferenceDataHelper!!.getRecentSearchList()[0].title)
+        tvHeader.text = getString(
+            R.string.weather_header_desc,
+            if (!isFromSplash) LocationUtils.getCityNameFromLatLng(
+                lat!!,
+                lon!!,
+                this
+            ) else preferenceDataHelper!!.getRecentSearchList()[0].title
+        )
         initRecyclerView()
         tvChangeAddress.setOnClickListener { onBackPressed() }
         checkLocationPoints()
@@ -82,7 +89,8 @@ class WeatherReportActivity : AppCompatActivity(), LocationListener {
 
     private fun getWeatherReport(lat: Double, lon: Double) {
         showProgressBar(true)
-        val apiService = RemoteServiceHelper.getRetrofitInstance(this)!!.create(ApiService::class.java)
+        val apiService =
+            RemoteServiceHelper.getRetrofitInstance(this)!!.create(ApiService::class.java)
         apiService.getWeatherReport(
             lat.toString(),
             lon.toString(),
@@ -110,9 +118,10 @@ class WeatherReportActivity : AppCompatActivity(), LocationListener {
                 WeatherReportData(
                     DateUtils.getDate(reportData.daily[i].dt.toString()),
                     DateUtils.getDayOfWeek(reportData.daily[i].dt.toString()),
-                    if (i == 0) ConverterUtils.kelvinToCelsius(reportData.current.temp) else ConverterUtils.kelvinToCelsius(
-                        reportData.daily[i].temp.day
-                    ),
+                    if (i == 0)
+                        ConverterUtils.kelvinToCelsius(reportData.current.temp)
+                    else
+                        ConverterUtils.kelvinToCelsius(reportData.daily[i].temp.day),
                     ConverterUtils.kelvinToCelsius(reportData.daily[i].temp.min),
                     ConverterUtils.kelvinToCelsius(reportData.daily[i].temp.max),
                     if (i == 0) reportData.current.weather[0].description else reportData.daily[i].weather[0].description

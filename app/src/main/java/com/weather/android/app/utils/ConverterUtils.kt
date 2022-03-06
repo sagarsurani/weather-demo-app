@@ -7,8 +7,7 @@ class ConverterUtils {
     companion object {
         fun kelvinToCelsius(kelvin: Double): String {
             val celsius = String.format("%.2f", (kelvin - 273.15))
-            return "$celsius °C"
+            return "$celsius°C"
         }
     }
 }
-
