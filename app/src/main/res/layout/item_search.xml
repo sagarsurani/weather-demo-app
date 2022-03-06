@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:weightSum="2"
+    android:layout_marginVertical="@dimen/dp_5_dp"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSearchLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="surat"
+        android:layout_weight="1.7"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:textSize="@dimen/sp_16_sp"
+        android:textColor="#50000000"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivDelete"
+        android:layout_width="@dimen/dp_20_dp"
+        android:layout_height="@dimen/dp_20_dp"
+        android:src="@drawable/ic_close"
+        android:layout_weight="0.3"
+        android:tint="#50000000"/>
+
+</LinearLayout>

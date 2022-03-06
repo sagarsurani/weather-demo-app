@@ -1,0 +1,6 @@
+/build
+/release
+release/
+debug/
+app.iml
+.svn/

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10_dp"
+        app:cardCornerRadius="@dimen/dp_10_dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20_dp"
+                android:layout_marginTop="@dimen/dp_30_dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_30_sp"
+                tools:text="Friday" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDay"
+                android:layout_marginHorizontal="@dimen/dp_20_dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="#90000000"
+                android:textSize="16sp"
+                tools:text="March 4, 2020" />
+
+            <LinearLayout
+                android:id="@+id/llTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDate"
+                android:layout_marginHorizontal="@dimen/dp_20_dp"
+                android:layout_marginTop="@dimen/dp_40_dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/dp_36_dp"
+                    android:layout_height="@dimen/dp_36_dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/cloudy" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dp_16_dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="#900B0A0A"
+                    android:textSize="32sp"
+                    tools:text="8°C" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/llTemp"
+                android:layout_marginHorizontal="@dimen/dp_20_dp"
+                android:layout_marginTop="@dimen/dp_20_dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:text="Light rain. Light breeze" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSubDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDesc"
+                android:layout_marginHorizontal="@dimen/dp_20_dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/dp_50_dp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="#70000000"
+                android:textSize="16sp"
+                tools:text="The high will be 8°C, the low will be 5°C." />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

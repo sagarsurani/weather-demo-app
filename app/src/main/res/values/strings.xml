@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Weather demo app</string>
+    <string name="setting">Setting</string>
+    <string name="cancel">cancel</string>
+    <string name="gps_enable_text">GPS is not enabled. Do you want to go to settings menu?</string>
+    <string name="permission_location_enable_text">Enable Location Permission from App settings</string>
+    <string name="wether_header_desc">The forcast in %1$s over the next 7 days.</string>
+    <string name="wether_desc">The high will be %1$s, the low will be %2$s.</string>
+    <string name="location_not_found">Location not found!!</string>
+    <string name="failed_to_show_report">failed to show report</string>
+    <string name="recent_searches">recent searches:</string>
+    <string name="hows_the_weather_looking">Hows the weather looking?</string>
+    <string name="type_your_address">Type your address..</string>
+    <string name="search">Search</string>
+    <string name="or_use_my_current_location">Or use my current location</string>
+    <string name="weather_app">Weather App</string>
+    <string name="change_my_address">Change my address</string>
+
+</resources>

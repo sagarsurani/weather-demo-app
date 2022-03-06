@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/primary_color"
+    android:layout_height="match_parent"
+    tools:context=".ui.WeatherReportActivity">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/dp_20_dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/poppins_semibold"
+        tools:text="The forcast in Surat over the next 7 days."
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvChangeAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvHeader"
+        android:layout_marginHorizontal="@dimen/dp_20_dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/change_my_address"
+        android:textColor="#90ffffff"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_medium" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvWeatherReport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvChangeAddress"
+        android:layout_marginTop="@dimen/dp_30_dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/dp_10_dp"
+        tools:itemCount="1"
+        tools:listitem="@layout/item_weather_report" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminateTint="@color/white" />
+
+</RelativeLayout>

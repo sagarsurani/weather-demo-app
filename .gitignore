@@ -1,0 +1,15 @@
+.gradle
+
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+.idea
+*.iml
+Update1.txt
+app/src/main/assets/content/node_modules
+sdktools/
+
+/local.properties
+
+.svn/
