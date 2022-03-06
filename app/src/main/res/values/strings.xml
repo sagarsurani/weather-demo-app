@@ -8,7 +8,7 @@
     <string name="weather_desc">The high will be %1$s, the low will be %2$s.</string>
     <string name="location_not_found">Location not found!!</string>
     <string name="failed_to_show_report">failed to show report</string>
-    <string name="recent_searches">recent searches:</string>
+    <string name="recent_searches">Recent Searches:</string>
     <string name="hows_the_weather_looking">Hows the weather looking?</string>
     <string name="type_your_address">Type your address..</string>
     <string name="search">Search</string>
