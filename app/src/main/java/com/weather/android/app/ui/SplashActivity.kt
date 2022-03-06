@@ -26,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
                     true
                 )
             }else {
-                MainActivity.start(this)
+                HomeActivity.start(this)
             }
         }, 3000)
     }

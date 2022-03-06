@@ -77,7 +77,7 @@ class WeatherReportActivity : AppCompatActivity(), LocationListener {
 
     override fun onBackPressed() {
         if (isFromSplash) {
-            MainActivity.start(this)
+            HomeActivity.start(this)
         } else {
             super.onBackPressed()
         }

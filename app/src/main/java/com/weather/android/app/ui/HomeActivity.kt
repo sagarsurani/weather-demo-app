@@ -22,10 +22,10 @@ import com.weather.android.app.utils.Constants
 import com.weather.android.app.utils.GPSUtil
 import com.weather.android.app.utils.LocationUtils
 import com.weather.android.app.utils.PermissionUtil
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_home.*
 
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
     private var preferenceDataHelper: PreferenceDataHelper? = null
     private var currentLatitude: Double? = null
     private var currentLongitude: Double? = null
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         fun start(context: Context) {
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, HomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             context.startActivity(intent)
         }
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         initView()
     }
@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openWeatherReportScreen(latitude: Double, longitude: Double) {
-        WeatherReportActivity.start(this@MainActivity, latitude, longitude, false)
+        WeatherReportActivity.start(this@HomeActivity, latitude, longitude, false)
     }
 
     private fun showMessage(msg: String) {
@@ -200,7 +200,7 @@ class MainActivity : AppCompatActivity() {
             object : PermissionUtil.PermissionAskListener {
                 override fun onNeedPermission() {
                     ActivityCompat.requestPermissions(
-                        this@MainActivity, arrayOf(
+                        this@HomeActivity, arrayOf(
                             Manifest.permission.ACCESS_COARSE_LOCATION,
                             Manifest.permission.ACCESS_FINE_LOCATION
                         ),
@@ -210,7 +210,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onPermissionPreviouslyDenied() {
                     ActivityCompat.requestPermissions(
-                        this@MainActivity, arrayOf(
+                        this@HomeActivity, arrayOf(
                             Manifest.permission.ACCESS_COARSE_LOCATION,
                             Manifest.permission.ACCESS_FINE_LOCATION
                         ),
@@ -220,7 +220,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onPermissionDisabled() {
                     GPSUtil.buildAlertMessageDenyPermission(
-                        this@MainActivity,
+                        this@HomeActivity,
                         getString(R.string.permission_location_enable_text), null
                     ).show()
                 }
