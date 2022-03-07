@@ -1,31 +1,29 @@
-package com.weather.android.app.ui
+package com.weather.android.app.ui.home.view
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.os.Looper
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
 import com.weather.android.app.R
+import com.weather.android.app.base.BaseActivity
 import com.weather.android.app.data.local.prefs.PreferenceDataHelper
 import com.weather.android.app.data.models.RecentSearchHistory
+import com.weather.android.app.ui.weatherReport.view.WeatherReportActivity
 import com.weather.android.app.ui.adapter.RecentSearchAdapter
-import com.weather.android.app.utils.Constants
-import com.weather.android.app.utils.GPSUtil
-import com.weather.android.app.utils.LocationUtils
-import com.weather.android.app.utils.PermissionUtil
+import com.weather.android.app.ui.home.presenter.HomePresenter
+import com.weather.android.app.utils.*
 import kotlinx.android.synthetic.main.activity_home.*
 
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
     private var preferenceDataHelper: PreferenceDataHelper? = null
     private var currentLatitude: Double? = null
     private var currentLongitude: Double? = null
@@ -44,63 +42,58 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        initView()
+        presenter.onActivityCreated()
     }
 
-    private fun initView() {
+    override fun initViews() {
         preferenceDataHelper = PreferenceDataHelper.getInstance(this)
         initRecyclerView()
-        btnSearch.setOnClickListener { getReportFromSearch() }
-        tvCurrentLocation.setOnClickListener { getReportFromCurrentLocation() }
+        btnSearch.setOnClickListener { presenter.getReportBySearchingCityOrPostalCode() }
+        tvCurrentLocation.setOnClickListener { presenter.currentLocationWeatherReport() }
     }
 
     private fun initRecyclerView() {
         rvRecentSearch.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recentSearchAdapter = RecentSearchAdapter(preferenceDataHelper!!.getRecentSearchList(),
-            fun(item: RecentSearchHistory) { getReportFromRecentSearch(item) })
+            fun(item: RecentSearchHistory) { presenter.recentSearchWeatherReport(item) },
+            fun() { showHideRecentView() })
         rvRecentSearch.adapter = recentSearchAdapter
         showHideRecentView()
     }
 
     private fun showHideRecentView() {
-        if (preferenceDataHelper!!.getRecentSearchList().size > 0)
+        if (!preferenceDataHelper!!.getRecentSearchList().isNullOrEmpty())
             llRecentSearch.visibility = View.VISIBLE
         else
             llRecentSearch.visibility = View.GONE
     }
 
-    private fun updateSearchHistoryList(list: ArrayList<RecentSearchHistory>) {
+    override fun onResume() {
+        super.onResume()
         if (this::recentSearchAdapter.isInitialized) {
-            recentSearchAdapter.setList(list)
+            recentSearchAdapter.setList(preferenceDataHelper!!.getRecentSearchList())
             showHideRecentView()
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        updateSearchHistoryList(preferenceDataHelper!!.getRecentSearchList())
-    }
-
-    private fun getReportFromCurrentLocation() {
+    override fun getReportFromCurrentLocation() {
         if (permissionIsGranted()) {
             if (currentLatitude != null && currentLongitude != null) {
                 addDataInSearchHistory(currentLatitude!!, currentLongitude!!)
-                openWeatherReportScreen(currentLatitude!!, currentLongitude!!)
             } else {
                 getLastCurrentLocation()
             }
         }
     }
 
-    private fun getReportFromRecentSearch(item: RecentSearchHistory) {
+    override fun getReportFromRecentSearch(item: RecentSearchHistory) {
         if (permissionIsGranted()) {
             addDataInSearchHistory(item.lat!!, item.lng!!)
-            openWeatherReportScreen(item.lat, item.lng)
         }
     }
 
-    private fun getReportFromSearch() {
+    override fun getReportFromSearch() {
         if (permissionIsGranted()) {
             val lat = LocationUtils.getLatLngFromCityOrPostalCode(
                 etSearchLocation.text.toString(),
@@ -114,42 +107,44 @@ class HomeActivity : AppCompatActivity() {
                 showMessage(getString(R.string.location_not_found))
             } else {
                 addDataInSearchHistory(lat!!, lon!!)
-                openWeatherReportScreen(lat, lon)
             }
         }
     }
 
     private fun addDataInSearchHistory(lat: Double, lon: Double) {
-        val item =
-            RecentSearchHistory(LocationUtils.getCityNameFromLatLng(lat, lon, this)!!, lat, lon)
-        for (i in 0 until preferenceDataHelper!!.getRecentSearchList().size) {
-            if (preferenceDataHelper!!.getRecentSearchList()[i].title == item.title) {
-                preferenceDataHelper!!.deleteSearchItem(i)
-                break
-            }
+        if (NetworkUtil.isNetworkConnected(this)) {
+            val item = RecentSearchHistory(LocationUtils.getCityNameFromLatLng(lat, lon, this)!!, lat, lon)
+            presenter.addItemInSearchHistory(item)
         }
-        PreferenceDataHelper.getInstance(this)!!.addSearchItem(item)
     }
 
-    private fun openWeatherReportScreen(latitude: Double, longitude: Double) {
-        WeatherReportActivity.start(this@HomeActivity, latitude, longitude, false)
+    override fun openWeatherReportScreen(lat: Double?, lng: Double?) {
+        WeatherReportActivity.start(this@HomeActivity, lat!!, lng!!, false)
     }
 
-    private fun showMessage(msg: String) {
+    override fun showMessage(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun getNewPresenter(): HomePresenter {
+        return HomePresenter(PreferenceDataHelper.getInstance(this)!!)
     }
 
     @SuppressLint("MissingPermission")
     private fun getLastCurrentLocation() {
         if (GPSUtil.checkGPSStatus(this)) {
-            mFusedLocationClient!!.lastLocation.addOnCompleteListener {
-                val location: Location = it.result
-                if (location == null) {
-                    requestNewCurrentLocationData()
-                } else {
-                    currentLatitude = location.latitude
-                    currentLongitude = location.longitude
+            if (NetworkUtil.isNetworkConnected(this)) {
+                mFusedLocationClient!!.lastLocation.addOnCompleteListener {
+                    if (it.result == null) {
+                        requestNewCurrentLocationData()
+                    } else {
+                        currentLatitude = it.result.latitude
+                        currentLongitude = it.result.longitude
+                        addDataInSearchHistory(currentLatitude!!, currentLongitude!!)
+                    }
                 }
+            } else {
+                showMessage(getString(R.string.internet_is_not_available))
             }
         } else {
             GPSUtil.buildAlertMessageNoGps(this, null).show()
@@ -176,6 +171,7 @@ class HomeActivity : AppCompatActivity() {
             val mLastLocation = locationResult.lastLocation
             currentLatitude = mLastLocation.latitude
             currentLongitude = mLastLocation.longitude
+            addDataInSearchHistory(currentLatitude!!, currentLongitude!!)
         }
     }
 

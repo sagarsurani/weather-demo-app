@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_color"
-    tools:context=".ui.SplashActivity">
+    tools:context=".ui.splash.view.SplashActivity">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"

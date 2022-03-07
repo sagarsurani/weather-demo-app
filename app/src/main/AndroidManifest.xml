@@ -21,10 +21,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WeatherDemoApp">
         <activity
-            android:name=".ui.WeatherReportActivity"
+            android:name=".ui.weatherReport.view.WeatherReportActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.splash.view.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -34,8 +34,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.HomeActivity"
-            android:exported="true" />
+            android:name=".ui.home.view.HomeActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
     </application>
 
 </manifest>

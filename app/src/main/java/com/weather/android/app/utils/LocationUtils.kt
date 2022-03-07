@@ -5,6 +5,7 @@ import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import com.google.android.gms.maps.model.LatLng
+import com.weather.android.app.R
 import java.io.IOException
 import java.util.*
 
@@ -31,9 +32,13 @@ class LocationUtils {
 
 
         fun getCityNameFromLatLng(lat: Double, lon: Double, context: Context): String? {
-            val geocoder = Geocoder(context, Locale.getDefault())
-            val addresses: List<Address> = geocoder.getFromLocation(lat, lon, 1)
-            return addresses[0].locality
+            return try {
+                val geocoder = Geocoder(context, Locale.getDefault())
+                val addresses: List<Address> = geocoder.getFromLocation(lat, lon, 1)
+                addresses[0].locality
+            } catch (e: IOException) {
+                context.getString(R.string.your_location)
+            }
         }
     }
 }

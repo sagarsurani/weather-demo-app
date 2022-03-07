@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:background="@color/primary_color"
     android:layout_height="match_parent"
-    tools:context=".ui.WeatherReportActivity">
+    tools:context=".ui.weatherReport.view.WeatherReportActivity">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvHeader"

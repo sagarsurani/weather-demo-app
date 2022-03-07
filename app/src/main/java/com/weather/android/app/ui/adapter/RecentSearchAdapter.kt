@@ -11,7 +11,8 @@ import kotlinx.android.synthetic.main.item_search.view.*
 
 class RecentSearchAdapter(
     recentSearchList: ArrayList<RecentSearchHistory>,
-    private val onItemClickListener: (RecentSearchHistory) -> Unit
+    private val onItemClickListener: (RecentSearchHistory) -> Unit,
+    private val onDeleteItemClick:()->Unit
 ) :
     RecyclerView.Adapter<RecentSearchAdapter.RecentSearchViewHolder>() {
     private var searchList: ArrayList<RecentSearchHistory>? = recentSearchList
@@ -31,6 +32,7 @@ class RecentSearchAdapter(
         holder.itemView.ivDelete.setOnClickListener {
             searchList!!.remove(searchList!![position])
             PreferenceDataHelper.getInstance(holder.itemView.context)!!.deleteSearchItem(position)
+            onDeleteItemClick()
             notifyDataSetChanged()
         }
 
